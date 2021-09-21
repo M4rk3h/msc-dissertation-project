@@ -1,0 +1,6 @@
+"0",""
+"0","med.lhb <- aggregate(formula = count ~ healthboard,"
+"0","                     data = df,"
+"0","                     FUN = median)"
+"0","# order it asc"
+"0","med.lhb[order(avg.lhb$count),]"

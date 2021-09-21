@@ -1,0 +1,7 @@
+"0","# plot a boxplot"
+"0","gpRetainerBox <- "
+"0","  boxplot(df.no.wales$gp_retainer,"
+"0","     main = toupper(""Boxplot of GP Retainer""),"
+"0","     xlab = ""GP Retainer Boxplot"","
+"0","     ylab = ""Frequency"","
+"0","     col = ""pink"")"

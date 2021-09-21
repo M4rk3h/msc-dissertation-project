@@ -1,0 +1,7 @@
+"0","df <- inner_join(df, wimd_df, by = ""postcode"")"
+"0","# remove spaces"
+"0","names(df) <- sub("" "", ""_"", names(df))"
+"0","# run this twice for some reason... "
+"0","names(df) <- sub("" "", ""_"", names(df))"
+"0","# sanity check"
+"0","df %>% head()"

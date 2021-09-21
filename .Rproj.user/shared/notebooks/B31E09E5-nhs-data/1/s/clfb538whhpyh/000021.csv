@@ -1,0 +1,8 @@
+"0","# import the data"
+"0","dwell.df <- read_xlsx(""../data/raw/new-dwellings-started.xlsx"")"
+"0","# change cols to lower"
+"0","names(dwell.df) <- tolower(names(dwell.df))"
+"0","# now to merge"
+"0","df <- inner_join(df, dwell.df, by = ""county"")"
+"0","# sanity check"
+"0","df %>% head()"

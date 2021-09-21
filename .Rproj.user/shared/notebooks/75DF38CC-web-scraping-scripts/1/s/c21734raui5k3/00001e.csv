@@ -1,0 +1,7 @@
+"0","# GP Partners"
+"0","# save this plot as png"
+"0","gpPartnerHist <- "
+"0","  hist(df.no.wales$`gp_partner/provider/spartner`,"
+"0","     main = toupper(""Histogram of GP Partner/Provider/SPartner""),"
+"0","     xlab = ""Approximately normally distributed data"","
+"0","     col = ""pink"")"

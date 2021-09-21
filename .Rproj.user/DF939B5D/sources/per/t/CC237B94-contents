@@ -1,0 +1,178 @@
+set.seed(17076749)
+
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(nycflights13)
+library(Lahman)
+library(gapminder)
+library(circlize)
+#library to import excel files
+
+df.april20 <- read_excel("data/NWSSP-Wales-AgeGender202004.xlsx")
+df.july20 <- read_excel("data/NWSSP-Wales-AgeGender202007.xlsx")
+df.october20 <- read_excel("data/NWSSP-Wales-AgeGender202010.xlsx")
+df.jan21 <- read_excel("data/NWSSP-Wales-AgeGender202101.xlsx")
+df.april21 <- read_excel("data/NWSSP-Wales-AgeGender202104.xlsx")
+df.july21 <- read_excel("data/NWSSP-Wales-AgeGender202004.xlsx")
+
+# 0 - Meta Data ####
+# The data shows the number of items prescribed by each practice by month and the number of patients registered with each practice.
+# Data relating to patient registrations by practice is extracted from NHAIS (National Health Application and Infrastructure Services) system each quarter. The Health Board, practice code, postcode and count by age band and gender are included. Please note that patients 95 and over have been grouped together due to potential risk of disclosure.
+
+# 1 - EDA ####
+
+# first it's important to see the structure of the data
+str(df.april20)
+# from the structure (str) we can see that there are 9 variables
+# with 39,368 inputs.
+names(df.april20)
+
+# I usually like to get a better idea of the data by viewing the 
+# head, tail and summary.
+head(df.april20)
+tail(df.april20)
+summary(df.april20)
+
+# next would be to check for any missing variables 
+# (If there are missing, it's important to either drop or manipulate them 
+# into an outlier so we can easily pick them out again)
+df.april20 %>% 
+  count() %>% 
+  is.na()
+# the results above show there are no missing values, which is great.
+
+df.april20$Period %>% 
+  unique() %>% length()
+# There is 1 period of time which is 2020-04 (April)
+df.april20$PracticeCode %>% 
+  unique() %>% length()
+# there are 414 unique PracticeCodes
+df.april20$PostCode %>% 
+  unique() %>% length()
+# there are 389 unique PostCodes
+df.april20$OrgCode %>% 
+  unique() %>% length()
+# There are 7 unique OrgCodes
+df.april20$AgeBand %>% 
+  unique() %>% length()
+# There are 96 unique AgeBands
+# This should be groups.
+
+# Data Science Live Book - Pablo Casas - January 2019
+# This could also be done with a script and a few packages
+# source: https://blog.datascienceheroes.com/exploratory-data-analysis-in-r-intro/
+# accessed 05/08/2021
+library(funModeling) 
+library(tidyverse) 
+library(Hmisc)
+# glimpse looks at data (similar to structure)
+glimpse(df.april20)
+# print to check the status of the dataframe
+print(status(df.april20))
+# frequency looks at plotting some of the numerical data
+freq(df.april20)
+# numerical profiling in one function 
+# automatically excludes non-numerical variables
+plot_num(df.april20)
+# describe looks at concise statistical descriptions of the df.
+describe(df.april20)
+
+# 2 - Descriptive Statistics ####
+mean(df.april20$MaleCount)
+# The mean MaleCount is 41.08
+mean(df.april20$FemaleCount)
+# The mean FemaleCount is 41.27
+# This would suggest more Females get seen than men.
+
+max(df.april20$MaleCount)
+# The mean MaleCount is 41.08
+max(df.april20$FemaleCount)
+# Could we look at the different types with AgeGroups?
+
+# profiling num is great for descriptive statistics
+descStats <- profiling_num(df.april20)
+write.csv(descStats, file = "descriptive-stats.csv")
+
+# Can we look at who saw the most people on avg,
+# via org code?
+orgPerP <- aggregate(formula = Count ~ OrgCode,
+                     data = df.april20,
+                     FUN = mean)
+# 3 - Plots ####
+plot(x = orgPerP$Count,
+     main = "Avg Age seen per Org code",
+     xlab = "Org Code - 7A(i)",
+     ylab = "Avg Age")
+grid()
+
+aggregate(formula = Count ~ OrgCode,
+          data = df.april20,
+          FUN = max)
+
+
+# 4 - Hypothesis Testing ####
+# Not sure what to do here?
+
+
+# Can we look at demand over time
+# Look at plotting the Genders / Age (gender per area)
+# Link LSOA to existing Data sets
+# Can look at Most Popular Visit per Age?
+# what proportion of females went out of the whole pop
+# Which would be count/sum(malecount) + sum(femalecount)
+# Or just for that GP actually
+# Which would be count/malecount + femalecount
+
+# Create an empty df.
+df <- data.frame()
+# create a merged df
+df <- do.call("rbind", list(df.april20, df.july20, df.october20, 
+                            df.jan21, df.july21))
+
+# Here we can't add April 2021 - as it has the health boards.
+# We would need to extract the postcodes per HB and add them,
+# to the other dfs - my method is something like,
+# check unique health boards as a list,
+# go through each one and filter them out,
+# check if OrgCode == Healthboard (HAName)
+
+# Create a list of unique health boards
+uHBs <- unique(df.april21$HAName)
+# do a dirty filter from the list (this isn't recommended.)
+df.AB <- filter(df.april21, HAName == uHBs[1])
+df.BC <- filter(df.april21, HAName == uHBs[2])
+df.HD <- filter(df.april21, HAName == uHBs[3])
+df.CV <- filter(df.april21, HAName == uHBs[4])
+df.CTM <- filter(df.april21, HAName == uHBs[5])
+df.SB <- filter(df.april21, HAName == uHBs[6])
+df.PT <- filter(df.april21, HAName == uHBs[7])
+# check if they all have a unique OrgCode
+unique(df.AB$OrgCode)
+unique(df.BC$OrgCode)
+unique(df.HD$OrgCode)
+unique(df.CV$OrgCode)
+unique(df.CTM$OrgCode)
+unique(df.SB$OrgCode)
+unique(df.PT$OrgCode)
+
+# now we know, 
+# 7A1 - Betsi Cadwaladr Uni
+# 7A2 - Hywel Dda
+# 7A3 - Swansea Bay UHB
+# 7A4 - Cardiff And Vale Uni
+# 7A5 - Cwm Taf Morgannwg UHB
+# 7A6 - Aneurin Bevan
+# 7A7 - Powys Teaching
+
+if (df$OrgCode == "7A1"){df$HAName = "B"}
+
+df$HAName[df$OrgCode %in% "7A1"] <- "Betsi Cadwaladr Uni"
+df$HAName[df$OrgCode %in% "7A2"] <- "Hywel Dda"
+df$HAName[df$OrgCode %in% "7A3"] <- "Swansea Bay UHB"
+df$HAName[df$OrgCode %in% "7A4"] <- "Cardiff And Vale Uni"
+df$HAName[df$OrgCode %in% "7A5"] <- "Cwm Taf Morgannwg UHB"
+df$HAName[df$OrgCode %in% "7A6"] <- "Aneurin Bevan"
+df$HAName[df$OrgCode %in% "7A7"] <- "Powys Teaching"
+  
+unique(df$Period)

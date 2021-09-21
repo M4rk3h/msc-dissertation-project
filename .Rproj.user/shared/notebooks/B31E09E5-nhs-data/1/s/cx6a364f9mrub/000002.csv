@@ -1,0 +1,6 @@
+"0","# Min-Max normalisation"
+"0","# create a function"
+"0","min_max_norm <- function(x) {"
+"0","    (x - min(x)) / (max(x) - min(x))"
+"0","  }"
+"0","# https://www.statology.org/how-to-normalize-data-in-r/"

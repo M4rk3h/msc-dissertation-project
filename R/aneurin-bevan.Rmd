@@ -1,0 +1,316 @@
+---
+title: "Aneurin Bevan"
+author: "Mark Baber"
+date: "15/09/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1 - Aneurin Bevan
+This section will focus in one the LHB, Aneurin Bevan.
+
+Aneurin Bevan HB covers 5 local authorities:
+
+- Caerphilly
+- Newport
+- Torfaen
+- Blaenau Gwent
+- Monmouthshire
+
+which covers a large area (and he's the guy who started the NHS) - by focusing in more on a single healthboard, perhaps we could find some more insights about certain LSOAs and cluster them together. Especially now we have WIMD added in to the mix, we could start to explore hypothesis such as:
+
+- Do LSOAs close together has a big fluctuation in their WIMD score?
+- Do LSOAs with higher WIMD scores have more facilities within it?
+- Do LSOAs with very low scores have a high population?
+
+and so on.
+
+Filter the data to df.ab which will only contain Aneurin Bevan data.
+
+- Import original dataframe
+
+```{r}
+library(readr)
+df.ab <- read_csv("../data/tidy/full-gp-visits.csv")
+# drop first col
+df.ab <- df.ab[-1]
+```
+
+
+```{r filter-lhbs-to-AB}
+# filter the df by lhb
+df.ab <- filter(df, healthboard == "Aneurin Bevan")
+# check structure
+str(df.ab)
+```
+
+After checking the structure to get a better feel for the dataset, this can be done by creating a function of a few of the eda we covered above. This function was found from a Pablo Casas' [Data Science Live Book - 2019](https://blog.datascienceheroes.com/exploratory-data-analysis-in-r-intro/) - Accessed 05/08/2021.
+
+```{r basic-eda-function}
+# function for basic eda
+basic_eda <- function(data)
+{
+  glimpse(data)
+  print(status(data))
+  freq(data) 
+  print(profiling_num(data))
+  plot_num(data)
+  describe(data)
+}
+```
+
+Above we created a basic EDA function using the a few functions from Tidyverse & Funmodeling.
+
+```{r run-basic-eda-function}
+basic_eda(df.ab)
+```
+
+The basic eda shows a lot about the data, especially with the frequency and percentages the data makes up. Lets quickly look at exploring the frequency of visits per postcode before moving on to adding LSOAs to the dataset. 
+
+```{r postcode-frequency}
+freq(df.ab$postcode,
+     plot = F)
+```
+
+After looking at _freq_ we can see that the top 5 postcodes are around 2% which is higher than the next 5 by 0.5+ - this is easier to find now we have focused on one healthboard.
+
+It's interesting to see the top 2 LSOAs more than the rest - this could be interesting to go through. 
+
+```{r top-five-lsoas}
+lsoaC <- count(df.ab, 
+               df.ab$`lsoa_code`, 
+               sort = T)
+
+lsoaC %>%
+  head(5)
+
+topTwo <- # save the top two
+  c("W01001524", # Pontypool (shocker, I know)
+    "W01001586") # West Chepstow!
+
+# https://www.ukcrimestats.com/LSOA/W01001586
+```
+
+
+
+```{r save-dfs-to-csv}
+# write out the data frame to end.
+# write.csv(df, file = "data/nhs-data/gp-visits-lhb.csv")
+# write.csv(df.ab, file = "data/nhs-data/gp-visits-ab.csv")
+```
+
+
+
+# 3 - Plots ####
+
+This section will go over the datasets gathered thus far and will look to see 
+
+## 3.1 - Age band ####
+
+Whilst we would usually check for normality with the Shapiro Wilk test - within R this is limited to a sample size of 5000 and seeing as this dataset is 43260 the sample size is so large, and this limitation protects us against the risk of the null hypothesis being wrongfully rejected, but also stops us from using this commonly used test here (it might be able to be done in other software like SAS or SPSS). 
+
+Therefore we will visually check the data for normality with plots.
+
+# Write about normality for each numerical col
+
+# Can we compare the number of registered patients to population estimates and look for outliers (Are people traveling for their GP?)
+
+```{r plot-ageband}
+# create a function to create a:
+# histogram
+# density plot?
+# boxplot
+
+# pColour <- c("black", "pink", "blue")
+
+# pAge <- ggplot(df.ab, aes(ageband)) + geom_histogram(colour = pColour[1], fill = pColour[2]) + geom_vline(aes(xintercept = mean(ageband)), color = pColour[3], linetype = "dashed", size = 1) + labs(title = toupper(names(df.ab[4])), subtitle = "Source: NHS Wales", x = names(df.ab[4]), y = "count", colour = "Mean")
+  
+
+# pAge
+
+hist(df.ab$ageband, 
+     main = toupper(names(df.ab[4])),
+     xlab = "Age",
+     col = "pink")
+
+# Density plot code below
+# plot(density(df.ab$ageband), main = toupper(names(df.ab[4])))
+
+boxplot(df.ab$ageband, 
+        main = toupper(names(df.ab[4])),
+        ylab = "Age",
+        col = "pink")
+```
+
+
+
+```{r}
+# library(qqplotr)
+#ggplot(df.ab, aes(sample = ageband)) +
+#  stat_qq_point(size = 2, col = "blue") +
+#  stat_qq_line()
+  
+#ggplot(gpPA, aes(sample = `Number of Prescribing Patients`)) +
+#  stat_qq_point(size = 2, col = "blue") +
+#  stat_qq_line()
+#hist(gpPA$`Number of Prescribing Patients`)
+#qqnorm(gpPA$`Number of Prescribing Patients`)
+
+# Density plot code below
+# plot(density(df.ab$ageband), 
+#     main = toupper(names(df.ab[4])))
+```
+
+
+```{r plot-malecount}
+hist(df.ab$malecount, 
+     main = toupper(names(df.ab[5])),
+     xlab = "Number of Males seen",
+     col = "pink")
+
+boxplot(df.ab$malecount, 
+        main = toupper(names(df.ab[5])),
+        ylab = "Males seen",
+        col = "pink")
+
+# we can make a hist, but it can't show 96 different bars per month - therefor a boxplot is better for looking at normality and the number of ages within the NHS dataset. This is the best we can do without grouping the data in _Actual age bands_ like 0-9, 10-19 etc.
+
+# Atleast a boxplot will show outliers
+```
+
+
+```{r plot-femalecount}
+hist(df.ab$femalecount, 
+     main = toupper(names(df.ab[6])),
+     xlab = "Number of Females seen",
+     col = "pink")
+
+boxplot(df.ab$femalecount, 
+        main = toupper(names(df.ab[6])),
+        ylab = "Females seen",
+        col = "pink")
+```
+
+
+```{r plot-count}
+hist(df.ab$count,
+     main = toupper(names(df.ab[8])),
+     xlab = "Number of patients seen",
+     col = "pink")
+
+boxplot(df.ab$count,
+        main = toupper(names(df.ab[8])),
+        ylab = "Patients seen",
+        col = "pink")
+```
+
+After roughly plotting all numerical variables within our data, we can see that none of the datasets are 'Normal' - this would be something to be mindful of going forward. Now lets get some more descriptive statistics from this filtered dataset and carry out some statistical analysis.
+
+This can be done by creating a function with the most commonly used functions which describe the dataset.
+
+```{r create-another-eda-function}
+# create my own eda function
+eda.2 <- function(data){
+  print(mean(data))
+  print(sd(data))
+  print(var(data))
+  print(median(data))
+  print(range(data))
+  print(quantile(data))
+  print(summary(data))
+  print(IQR(data))
+}
+eda.2(df.ab$malecount)
+```
+
+Whilst this is great to know how to create our own EDA function, sometimes it's best to just use the summary function, which gives a great _summary_ of the whole data.
+
+```{r look-at-summary-of-df.ab}
+summary(df.ab)
+```
+
+
+Before moving on to Hypothesis testing and trying to find even more insights from the dataset, lets see if we could get some other datasets to join with this dataset. This could be useful when trying to develop characteristics for the dataset, especially if looking at areas and trying to find patterns. 
+
+```{r}
+numOfGPs <- 
+  df.ab$practicecode %>% 
+  unlist() %>% 
+  unique() %>% 
+  length()
+
+paste("There are", 
+      numOfGPs, 
+      "within", 
+      df.ab$healthboard[1]) # paste one
+# write.csv(df.ab, file = "data/df.ab.csv")
+```
+
+Lets see if we can see the mean number of visits per gp
+
+```{r mean-visits-per-gp}
+# aggregare the mean number of total visits (count) by lsoa
+lsoa.mean <- aggregate(count ~ lsoa_code, 
+            data = df.ab, 
+            mean)
+
+# sort the lsoa by count
+sort(lsoa.mean$count, 
+     decreasing = T) %>% 
+  round(2)
+
+# plot it in a hist
+hist(lsoa.mean$count,
+     main = toupper("Mean number of GP visits per LSOA"),
+     xlab = "LSOA",
+     col = "pink")
+# plot a boxplot
+boxplot(lsoa.mean$count,
+        main = toupper("Mean number of GP visits per LSOA"),
+        xlab = "LSOA",
+        col = "pink")
+```
+
+After looking at both plots, we can see that there is a few outliers. There's a few things which could be worth exploring:
+
+- Look for just the year 2020 (as it is a full year)
+- Break down this by each month we have
+
+```{r split-years-calculate-means}
+ab.2020 <- filter(df.ab, year == "2020")
+
+ab.2021 <- filter(df.ab, year == "2021")
+
+# aggregare the mean number of total visits (count) by lsoa
+lsoa2020.mean <- aggregate(count ~ lsoa_code, data = ab.2020, mean)
+
+lsoa2021.mean <- 
+  aggregate(count ~ lsoa_code, 
+            data = ab.2021, 
+            mean)
+
+# sort the lsoa by count
+sort(lsoa2020.mean$count, 
+     decreasing = T)
+
+sort(lsoa2021.mean$count, 
+     decreasing = T)
+
+# add year
+lsoa2020.mean$year <- 
+  "2020"
+
+lsoa2021.mean$year <-
+  "2021"
+
+# join them
+lsoa.m.means <- 
+  rbind(lsoa2020.mean, 
+        lsoa2021.mean)
+
+lsoa.m.means <- 
+  as.data.frame(lsoa.m.means)
+```

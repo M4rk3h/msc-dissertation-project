@@ -1,0 +1,6 @@
+"0","# Omitted"
+"0","# Before moving on, lets try to add on more dataset which could help pinpoint where in each LSOA a GP is, this can be done with the datasets from the same website."
+"0",""
+"0","# [GP Practice Analysis Data](https://nwssp.nhs.wales/ourservices/primary-care-services/general-information/data-and-publications/gp-practice-analysis/)"
+"0",""
+"0","# First, make a copy of the original df."

@@ -1,0 +1,6 @@
+"0",""
+"0","med.wimd <- aggregate(formula = count ~ `wimd_lsoa_rank`,"
+"0","                     data = df,"
+"0","                     FUN = median)"
+"0","# order it asc"
+"0","med.wimd[order(med.wimd$count, decreasing = T),]"

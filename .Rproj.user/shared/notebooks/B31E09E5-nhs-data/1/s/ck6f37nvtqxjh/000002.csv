@@ -1,0 +1,5 @@
+"0","avg.county <- aggregate(formula = count ~ county,"
+"0","                     data = df,"
+"0","                     FUN = mean)"
+"0","# order it asc"
+"0","avg.county[order(avg.lhb$count, decreasing = T),]"

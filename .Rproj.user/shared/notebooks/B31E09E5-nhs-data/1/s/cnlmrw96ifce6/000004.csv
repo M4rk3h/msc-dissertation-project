@@ -1,0 +1,11 @@
+"0","# whilst this dataset looks great, lets sort the colnames alphabetically, as I'm very picky."
+"0","df <- df %>% "
+"0","  select(sort(current_vars()))"
+"2","Warning:"
+"2"," `current_vars()` was deprecated in dplyr 0.8.4.
+Please use `tidyselect::peek_vars()` instead.
+[90mThis warning is displayed once every 8 hours.[39m
+[90mCall `lifecycle::last_warnings()` to see where this warning was generated.[39m
+"
+"0","# sanity check as I'm tired"
+"0","df %>% head()"

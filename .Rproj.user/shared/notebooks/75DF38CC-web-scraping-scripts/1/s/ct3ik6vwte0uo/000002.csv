@@ -1,0 +1,6 @@
+"0","# remove health board"
+"0","tempD <- df.pop[-1]"
+"0","# remove Wales"
+"0","tempD <- tempD[-1,]"
+"0","# remove Total"
+"0","tempD <- tempD[1:11]"

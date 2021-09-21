@@ -1,0 +1,6 @@
+"0","# GP Locum"
+"0","gpLocumHist <- "
+"0","  hist(df.no.wales$gp_locum,"
+"0","     main = toupper(""Histogram of GP Locum""),"
+"0","     xlab = ""Approximately normally distributed data"","
+"0","     col = ""pink"")"

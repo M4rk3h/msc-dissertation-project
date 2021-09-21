@@ -1,0 +1,7 @@
+"0",""
+"0","# Salaried "
+"0","gpSalariedHist <- "
+"0","  hist(df.no.wales$salaried,"
+"0","     main = toupper(""Histogram of Salaried""),"
+"0","     xlab = ""Approximately normally distributed data"","
+"0","     col = ""pink"")"

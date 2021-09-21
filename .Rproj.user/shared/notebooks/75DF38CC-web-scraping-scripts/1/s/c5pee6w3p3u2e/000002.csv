@@ -1,0 +1,7 @@
+"0","# update the col names pop"
+"0","col.names.pop <- c(""Health Board"", slice.pop.years)"
+"0","# change LHBs to shorter version."
+"0","df.pop.no.wales$health_board <- row.names1"
+"2","Error in df.pop.no.wales$health_board <- row.names1 : 
+  object 'df.pop.no.wales' not found
+"

@@ -1,0 +1,7 @@
+"0","# T-TEST"
+"0","ggplot(df, aes(count, year, color = as.factor(year))) +"
+"0","  geom_boxplot(aes(group = year)) + "
+"0","  labs(title = str_to_title(""Boxplot of Count and Year""), "
+"0","       subtitle = str_to_title(""Number of visits per year""),"
+"0","       x = str_to_title(""gp visits""), y = str_to_title(""year""),"
+"0","       color = ""Year"")"

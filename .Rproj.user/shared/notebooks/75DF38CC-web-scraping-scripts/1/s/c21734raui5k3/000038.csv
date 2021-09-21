@@ -1,0 +1,7 @@
+"0","# plot a boxplot"
+"0","gpTotalHist <- "
+"0","  boxplot(df.no.wales$total,"
+"0","     main = toupper(""Boxplot of Total""),"
+"0","     xlab = ""Total Boxplot"","
+"0","     ylab = ""Frequency"","
+"0","     col = ""pink"")"

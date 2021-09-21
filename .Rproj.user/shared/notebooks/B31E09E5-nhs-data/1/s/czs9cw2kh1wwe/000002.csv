@@ -1,0 +1,4 @@
+"0","# remove spaces from postcode"
+"0","df$PostCode <- gsub("" "", """", df$PostCode)"
+"0","# change col names to lower."
+"0","names(df) <- names(df) %>% tolower()"

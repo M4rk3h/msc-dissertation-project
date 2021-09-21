@@ -1,0 +1,4 @@
+"0",""
+"0","names(df.staff.gp) <- tolower(names(df.staff.gp))"
+"0","# remove spaces"
+"0","names(df.staff.gp) <- sub("" "", ""_"", names(df.staff.gp))"

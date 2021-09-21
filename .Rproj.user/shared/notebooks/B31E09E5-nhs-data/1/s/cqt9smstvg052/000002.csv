@@ -1,0 +1,6 @@
+"0","# numerical profiling in one function "
+"0","# automatically excludes non-numerical variables"
+"0","plot_num(df)"
+"2","Warning:"
+"2"," `guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> = ""none"")` instead.
+"

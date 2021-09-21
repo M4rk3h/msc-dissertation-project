@@ -1,0 +1,3 @@
+"0","df.no.wales <- df.staff.gp[2:7] "
+"0","df.no.wales <- df.no.wales[c(-1),]"
+"0","head(df.no.wales)"

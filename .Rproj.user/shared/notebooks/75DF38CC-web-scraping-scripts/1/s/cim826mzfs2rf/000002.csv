@@ -1,0 +1,4 @@
+"0","# set url"
+"0","url <- 'https://statswales.gov.wales/Catalogue/Health-and-Social-Care/General-Medical-Services/number-of-gps-employed-in-general-practices'"
+"0","# grab content from url"
+"0","content <- read_html(url)"

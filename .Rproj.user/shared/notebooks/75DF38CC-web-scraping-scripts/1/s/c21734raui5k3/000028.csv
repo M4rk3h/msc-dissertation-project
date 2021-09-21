@@ -1,0 +1,6 @@
+"0","# plot a boxplot"
+"0","gpPractitionerBox <- boxplot(df.no.wales$gp_practitioner,"
+"0","     main = toupper(""Boxplot of the GP Practitioner""),"
+"0","     xlab = ""GP Practitioner Boxplot"","
+"0","     ylab = ""Frequency"","
+"0","     col = ""pink"")"

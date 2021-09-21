@@ -1,0 +1,7 @@
+"0","lhbs <- avg.lhb$healthboard"
+"0",""
+"0","pp <- ggplot(avg.lhb, aes(count, healthboard, colour = healthboard)) +"
+"0","  geom_point(aes(size = 6)) + "
+"0","  labs(title = ""Average Age Seen Per Health Board"", "
+"0","       subtitle = ""From 2020 - 2021"")"
+"0","pp"

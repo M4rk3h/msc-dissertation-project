@@ -1,0 +1,7 @@
+"0","# first only select what columns to keep"
+"0","slice.one <- get.tables %>% "
+"0","  subset(select = 1:7)"
+"0","# now select what rows to keep"
+"0","slice.two <- slice.one[c(18:25),]"
+"0","# only keep the gp staff data"
+"0","mydf.staff.gp <- slice.two[1:7]"

@@ -1,0 +1,6 @@
+"0","# GP Registrar"
+"0","gpRegistrarHist <- "
+"0","  hist(df.no.wales$gp_registrar,"
+"0","     main = toupper(""Histogram of GP Registrar""),"
+"0","     xlab = ""Approximately normally distributed data"","
+"0","     col = ""pink"")"

@@ -1,0 +1,6 @@
+"0","# Total"
+"0","gpTotalHist <- "
+"0","  hist(df.no.wales$total,"
+"0","     main = toupper(""Histogram of Total""),"
+"0","     xlab = ""Approximately normally distributed data"","
+"0","     col = ""pink"")"

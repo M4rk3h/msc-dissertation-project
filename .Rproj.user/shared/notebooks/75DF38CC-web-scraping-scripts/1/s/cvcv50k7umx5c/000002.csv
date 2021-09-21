@@ -1,0 +1,5 @@
+"0","plot.one.no.wales <- "
+"0","  ggplot(df.no.wales, aes(health_board, total, fill = health_board)) + "
+"0","  geom_col() + geom_text(aes(label = total, y = (total/2)), size = 3) "
+"0","# write.csv(df.no.wales, file = ""data/number-of-general.csv"")"
+"0",""

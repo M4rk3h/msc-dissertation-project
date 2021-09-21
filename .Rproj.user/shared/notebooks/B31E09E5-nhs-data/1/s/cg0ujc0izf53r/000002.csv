@@ -1,0 +1,6 @@
+"0","# get col names from a dataset from 2020"
+"0","colNames <- names(df.april20)"
+"0",""
+"0","# rename colnames with the same as older datasets"
+"0","colnames(df.april21) <- colNames"
+"0","colnames(df.july21) <- colNames"

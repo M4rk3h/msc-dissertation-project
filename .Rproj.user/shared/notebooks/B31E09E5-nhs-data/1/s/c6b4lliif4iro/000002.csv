@@ -1,0 +1,5 @@
+"0","# df$ageband[is.na(df$ageband)] <- mean(df$ageband, na.rm = TRUE) %>% round(0)"
+"0","# df$ageband[is.na(df$ageband)] <- median(df$ageband, na.rm = TRUE) %>% round(0)"
+"0","# df$ageband[is.na(df$ageband)] <- -10"
+"0","# df$ageband[is.na(df$ageband)] <- 0"
+"0","df <- drop_na(df)"

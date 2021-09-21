@@ -1,0 +1,23 @@
+"0","library(readr)"
+"0","pop_estimations <- read_csv(""../data/web-scraping/pop-estimations.csv"")"
+"2","New names:
+* `` -> ...1
+"
+"1","[1m[1mRows: [1m[22m[34m[34m7[34m[39m [1m[1mColumns: [1m[22m[34m[34m14[34m[39m
+"
+"1","[36m--[39m [1m[1mColumn specification[1m[22m [36m-----------------------------------------------------------------------------------------------[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (1): Health Board
+[32mdbl[39m (13): ...1, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, Total
+"
+"1","
+[36mi[39m Use [38;5;251m[48;5;235m[38;5;251m[48;5;235m`spec()`[48;5;235m[38;5;251m[49m[39m to retrieve the full column specification for this data.
+[36mi[39m Specify the column types or set [38;5;251m[48;5;235m[38;5;251m[48;5;235m`show_col_types = FALSE`[48;5;235m[38;5;251m[49m[39m to quiet this message.
+"
+"0","pop_estimations <- pop_estimations[-1]"
+"0",""
+"0","avg.pop <- aggregate(formula = Total ~ `Health Board`,"
+"0","                     data = pop_estimations,"
+"0","                     FUN = mean)"
+"0",""
+"0","avg.pop[order(avg.pop$Total),]"

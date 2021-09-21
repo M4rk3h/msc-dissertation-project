@@ -1,0 +1,7 @@
+"0","df.pop <- rename(df.pop, ""Health Board"" = ""X2"")"
+"0","# add Total again"
+"0","df.pop$Total <- rowSums(df.pop[-1])"
+"0","# name col names to lower"
+"0","names(df.pop) <- tolower(names(df.pop))"
+"0","# remove spaces"
+"0","names(df.pop) <- sub("" "", ""_"", names(df.pop))"

@@ -1,0 +1,6 @@
+"0","# Make a boxplot of GP visits per county"
+"0","ggplot(df, aes(count, county, color = as.factor(county))) +"
+"0","  geom_boxplot() + labs(title = str_to_title(""Boxplot of gp visits and County""), "
+"0","       subtitle = str_to_title(""Number of gp visits per county""),"
+"0","       x = str_to_title(""gp visits""), y = str_to_title(""year"")) +"
+"0","  theme(legend.position = ""none"")"

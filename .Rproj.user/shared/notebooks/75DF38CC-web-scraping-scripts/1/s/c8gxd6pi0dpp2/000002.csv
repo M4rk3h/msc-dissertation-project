@@ -1,0 +1,8 @@
+"0","# set new url"
+"0","url.pop <- ""https://statswales.gov.wales/Catalogue/Population-and-Migration/Population/Estimates/Local-Health-Boards/populationestimates-by-welshhealthboard-year"""
+"0","# grab content from url"
+"0","content.pop <- read_html(url.pop)"
+"0","# grab the tables from the page"
+"0","get.tables.pop <- content.pop %>% "
+"0","  html_element(""table"") %>% "
+"0","  html_table()"

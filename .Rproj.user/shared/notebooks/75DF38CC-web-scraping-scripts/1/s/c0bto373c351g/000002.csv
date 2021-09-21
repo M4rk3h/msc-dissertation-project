@@ -1,0 +1,4 @@
+"0","# write.csv(df.pop.no.wales, ""data/population-estimates.csv"")"
+"0","# Remove everything which we no longer need to free up some memory/RAM."
+"0","# rm(list = ls())"
+"0","# gc()"

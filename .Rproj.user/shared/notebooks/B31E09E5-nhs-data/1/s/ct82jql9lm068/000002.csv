@@ -1,0 +1,6 @@
+"0","# average wimd"
+"0","avg.wimd <- aggregate(formula = count ~ `wimd_lsoa_rank`,"
+"0","                     data = df,"
+"0","                     FUN = mean)"
+"0","# order it asc"
+"0","avg.wimd[order(avg.wimd$count, decreasing = T),]"

@@ -1,0 +1,7 @@
+"0","ggplot(df, aes(total, count, color = as.factor(total))) + "
+"0","  geom_point() +"
+"0","  labs(title = str_to_title(""Scatterplot of GP Visits against new properties""), "
+"0","       subtitle = str_to_title(""GP Visits ~ Total number of new properties developed""),"
+"0","       x = str_to_title(""New Properties Developed""), "
+"0","       y = str_to_title(""GP Visits"")) + "
+"0","  theme(legend.position = ""none"")"
