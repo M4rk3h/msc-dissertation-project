@@ -3,9 +3,9 @@ title: "NHS Wales Data"
 author: "Mark Baber"
 date: '2021'
 output:
-  word_document: default
   html_document:
     df_print: paged
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}

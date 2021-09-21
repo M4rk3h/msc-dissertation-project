@@ -3,9 +3,10 @@ title: "Web Scraping Data"
 author: "Mark Baber"
 date: '2021'
 output:
-  word_document: default
   html_document:
     df_print: paged
+  pdf_document: default
+  word_document: default
 ---
 
 
@@ -105,7 +106,7 @@ names(df.staff.gp) <- sub(" ", "_", names(df.staff.gp))
 Firstly, it looks like the date from the website has been defaulted to the older date, and I was unable to switch it to work with this code. I will be mindful with this going forward.
 
 
-![Date Picker - Stats Wales](figures/date-picker.png "Date Picker")
+![Date Picker - Stats Wales](../figures/date-picker.png "Date Picker")
 
 Now that the data has been sliced and carefully selected the parts of the data to keep,
 I want to try and get the Total added onto the end of the table which will make analysing it a bit easier.
@@ -401,6 +402,13 @@ df.pop$Total <- rowSums(df.pop[-1])
 names(df.pop) <- tolower(names(df.pop))
 # remove spaces
 names(df.pop) <- sub(" ", "_", names(df.pop))
+
+# now remove wales
+df.pop.no.wales <- df
+# save df.pop without wales
+df.pop.no.wales <- df.pop[-1,]
+# renamre the health boards
+df.pop.no.wales$health_board <- row.names1
 ```
 
 Now to try and plot the Total population per health board.
@@ -408,8 +416,6 @@ Now to try and plot the Total population per health board.
 ```{r}
 # update the col names pop
 col.names.pop <- c("Health Board", slice.pop.years)
-# change LHBs to shorter version.
-df.pop.no.wales$health_board <- row.names1
 
 plot.two <- 
   ggplot(df.pop, aes(health_board, total, fill = health_board)) + 
@@ -424,8 +430,6 @@ plot.two <-
 Now to try it without Wales again, which is throwing off the plot.
 
 ```{r}
-# save df.pop without wales
-df.pop.no.wales <- df.pop[-1,]
 #write.csv(df.pop.no.wales, 'pop-estimates.csv')
 plot.two.no.wales <- 
   ggplot(df.pop[-1,], aes(health_board, total, fill = health_board)) + 
@@ -440,8 +444,6 @@ plot.two.no.wales <-
 ```
 This data would be interesting to see side by side.
 ```{r}
-df.pop.no.wales$health_board <- row.names1
-
 noWalesA <- 
   ggplot(df.no.wales, aes(health_board, total, fill = health_board)) + 
   geom_col() + 
